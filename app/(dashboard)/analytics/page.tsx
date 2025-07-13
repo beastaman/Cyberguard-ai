@@ -5,9 +5,20 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { Shield, AlertTriangle, CheckCircle } from "lucide-react"
 
+type ThreatData = {
+  date: string
+  threats: number
+}
+
+type SecurityEvent = {
+  type: 'threat' | 'blocked' | 'info'
+  description: string
+  date: string
+}
+
 export default function AnalyticsPage() {
-  const [threatData, setThreatData] = useState([])
-  const [securityEvents, setSecurityEvents] = useState([])
+  const [threatData, setThreatData] = useState<ThreatData[]>([])
+  const [securityEvents, setSecurityEvents] = useState<SecurityEvent[]>([])
 
   useEffect(() => {
     fetchThreatData()
