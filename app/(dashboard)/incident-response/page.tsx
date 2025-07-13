@@ -5,8 +5,14 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { AlertTriangle, CheckCircle, Clock } from "lucide-react"
 
+type Incident = {
+  id: string | number
+  description: string
+  date: string
+}
+
 export default function IncidentResponsePage() {
-  const [incidents, setIncidents] = useState([])
+  const [incidents, setIncidents] = useState<Incident[]>([])
 
   useEffect(() => {
     fetchIncidents()
@@ -18,7 +24,12 @@ export default function IncidentResponsePage() {
     setIncidents(data)
   }
 
-  const resolveIncident = async (id) => {
+  interface ResolveIncidentResponse {
+    success: boolean
+    message?: string
+  }
+
+  const resolveIncident = async (id: string | number): Promise<void> => {
     await fetch(`/api/incidents/${id}/resolve`, { method: 'PUT' })
     fetchIncidents()
   }

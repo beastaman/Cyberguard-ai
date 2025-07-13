@@ -7,8 +7,15 @@ import { Shield, Lock, AlertTriangle } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 
 
+type PreventionMeasure = {
+  id: string | number
+  name: string
+  type: 'firewall' | 'encryption' | 'intrusion'
+  active: boolean
+}
+
 export default function PreventionPage() {
-  const [preventionMeasures, setPreventionMeasures] = useState([])
+  const [preventionMeasures, setPreventionMeasures] = useState<PreventionMeasure[]>([])
 
   useEffect(() => {
     fetchPreventionMeasures()
@@ -20,7 +27,11 @@ export default function PreventionPage() {
     setPreventionMeasures(data)
   }
 
-  const toggleMeasure = async (id) => {
+  interface ToggleMeasureFn {
+    (id: string | number): Promise<void>
+  }
+
+  const toggleMeasure: ToggleMeasureFn = async (id) => {
     await fetch(`/api/prevention-measures/${id}`, { method: 'PUT' })
     fetchPreventionMeasures()
   }

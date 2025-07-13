@@ -6,7 +6,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { FileText, Download } from "lucide-react"
 
 export default function ReportsPage() {
-  const [reports, setReports] = useState([])
+  type Report = {
+    id: string;
+    name: string;
+    date: string;
+  }
+  const [reports, setReports] = useState<Report[]>([])
 
   useEffect(() => {
     fetchReports()

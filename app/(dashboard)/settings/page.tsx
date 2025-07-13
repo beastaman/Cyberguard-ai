@@ -24,7 +24,15 @@ export default function SettingsPage() {
     setSettings(data)
   }
 
-  const updateSetting = async (key, value) => {
+  interface Settings {
+    emailNotifications: boolean;
+    twoFactorAuth: boolean;
+    apiKey: string;
+  }
+
+  type SettingKey = keyof Settings;
+
+  const updateSetting = async (key: SettingKey, value: Settings[SettingKey]) => {
     await fetch('/api/settings', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },

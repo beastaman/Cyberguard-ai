@@ -4,8 +4,15 @@ import { useState, useEffect } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 
+type NetworkDatum = {
+  time: string
+  inbound: number
+  outbound: number
+  connections: number
+}
+
 export default function MonitoringPage() {
-  const [networkData, setNetworkData] = useState([])
+  const [networkData, setNetworkData] = useState<NetworkDatum[]>([])
 
   useEffect(() => {
     const fetchData = async () => {

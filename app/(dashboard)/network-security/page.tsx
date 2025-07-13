@@ -6,8 +6,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Server, Wifi, Shield } from "lucide-react"
 import { Progress } from "@/components/ui/progress"
 
+type NetworkDevice = {
+  id: string;
+  name: string;
+  type: 'server' | 'wifi' | string;
+  status: 'secure' | 'unsecure' | string;
+};
+
 export default function NetworkSecurityPage() {
-  const [networkDevices, setNetworkDevices] = useState([])
+  const [networkDevices, setNetworkDevices] = useState<NetworkDevice[]>([])
   const [securityScore, setSecurityScore] = useState(0)
 
   useEffect(() => {
